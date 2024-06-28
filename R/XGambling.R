@@ -2,5 +2,4 @@
 #' @description Functions for the Extinction Gambling Task
 #' @details Click on 'index' below to see all the functions.
 #' @name package-package
-#' @docType _PACKAGE
-NULL
+"_PACKAGE"
