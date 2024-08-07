@@ -60,7 +60,7 @@ E_col <- function(e, n_trials, n_players, r1, r2, r3, s1, s2, payoff_r2 = 0, pay
     stop("Error: n_trials must be divisible by n_players.")
   }
   
-  key <- paste(e, n_trials,  n_players, r1, r2, r3, s1, s2, payoff_r2, payoff_r3, payoff_s1, payoff_s2, coord = FALSE, sep = "-")
+  key <- paste(e, n_trials,  n_players, r1, r2, r3, s1, s2, payoff_r2, payoff_r3, payoff_s1, payoff_s2, coord, sep = "-")
   if (key %in% names(cache_col)) {
     return(cache_col[[key]])
   }
