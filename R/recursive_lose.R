@@ -13,6 +13,7 @@
 #' @param payoff_r3 The payoff of outcome 3 when choosing the risky lottery
 #' @param payoff_s1 The payoff of outcome 1 when choosing the safe lottery
 #' @param payoff_s2 The payoff of outcome 2 when choosing the safe lottery
+#' @param amb_risk The background extinction risk independent of the players action.
 #' @returns A list with the expected payoff when following the optimal strategy, the optimal next choice, a
 #' and a softmax transformation with inverse temperature 50 containing the probabilities of the next choice 
 #' (this helps pick up on cases, where there are only tiny EV differences between playing safe and risky)
@@ -21,18 +22,19 @@
 #' cache <- list()
 #' E_lose(e = 0, n = 100, r1 = 0.05, r2 = 0.475, r3 = 0.475, s1 = 0.5, s2 = 0.5,
 #'  payoff_r2 = 0, payoff_r3 = 10, payoff_s1 = 0, payoff_s2 = 1)
-E_lose <- function(e, n, r1, r2, r3, s1, s2, payoff_r2 = 0, payoff_r3 = 10, payoff_s1 = 0, payoff_s2 = 1) {
-  key <- paste(e, n, r1, r2, r3, s1, s2, payoff_r2, payoff_r3, payoff_s1, payoff_s2, sep = "-")
+E_lose <- function(e, n, r1, r2, r3, s1, s2, payoff_r2 = 0, payoff_r3 = 10, payoff_s1 = 0, payoff_s2 = 1, amb_risk = 0) {
+  key <- paste(e, n, r1, r2, r3, s1, s2, payoff_r2, payoff_r3, payoff_s1, payoff_s2, amb_risk, sep = "-")
+  amb_surv <- 1-amb_risk
   if (key %in% names(cache)) {
     return(cache[[key]])
   }
   if (n == 0) {
     result <- list(value = e, play_risky = NULL)
   } else {
-    E_risky <- r2 * E_lose(e + payoff_r2, n - 1, r1, r2, r3, s1, s2, payoff_r2, payoff_r3, payoff_s1, payoff_s2)$value + 
-      r3 * E_lose(e + payoff_r3, n - 1, r1, r2, r3, s1, s2, payoff_r2, payoff_r3, payoff_s1, payoff_s2)$value
-    E_safe <- s1 * E_lose(e + payoff_s1, n - 1, r1, r2, r3, s1, s2, payoff_r2, payoff_r3, payoff_s1, payoff_s2)$value + 
-      s2 * E_lose(e + payoff_s2, n - 1, r1, r2, r3, s1, s2, payoff_r2, payoff_r3, payoff_s1, payoff_s2)$value
+    E_risky <- amb_surv*r2 * E_lose(e + payoff_r2, n - 1, r1, r2, r3, s1, s2, payoff_r2, payoff_r3, payoff_s1, payoff_s2, amb_risk)$value + 
+      amb_surv*r3 * E_lose(e + payoff_r3, n - 1, r1, r2, r3, s1, s2, payoff_r2, payoff_r3, payoff_s1, payoff_s2, amb_risk)$value
+    E_safe <- amb_surv*s1 * E_lose(e + payoff_s1, n - 1, r1, r2, r3, s1, s2, payoff_r2, payoff_r3, payoff_s1, payoff_s2, amb_risk)$value + 
+      amb_surv*s2 * E_lose(e + payoff_s2, n - 1, r1, r2, r3, s1, s2, payoff_r2, payoff_r3, payoff_s1, payoff_s2, amb_risk)$value
     play_risky <- E_risky > E_safe
     prob_risky <- reservr::softmax(50 * c(E_risky, E_safe))
     result <- list(value = max(E_risky, E_safe), play_risky = play_risky, prob_risky = prob_risky)
