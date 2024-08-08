@@ -33,6 +33,7 @@ play <- function(e, max_n, r1, r2, r3, s1, s2, payoff_r2 = 0, payoff_r3 = 10, pa
   risky_plays <- rep(FALSE, max_n)
   num_risky <- 0
   winnings_so_far <- 0
+  amb_surv <- 1-amb_risk
   
   for (n in 1:max_n) {
     if (soft) {
@@ -55,7 +56,10 @@ play <- function(e, max_n, r1, r2, r3, s1, s2, payoff_r2 = 0, payoff_r3 = 10, pa
     
     if (play_risky) {
       num_risky <- num_risky + 1
-      outcome <- sample(c("X", "L", "W"), 1, prob=c(r1, r2, r3))
+      outcome <- sample("X", "again", 1 prob = (amb_risk, amb_surv))
+      if(outcome == "again"){
+        outcome <- sample(c("X", "L", "W"), 1, prob=c(r1, r2, r3))
+      }
       if (outcome == "X") {
         if (n != max_n) {
           rounds_alive[(n+1):max_n] <- FALSE
