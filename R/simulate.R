@@ -18,6 +18,7 @@
 #' @param type whether "lose" or "reset" version is used
 #' @param inv_temp inverse temperature for the softmax transformation
 #' @param precision the number of agents being simulated
+#' @param amb_risk The background extinction risk independent of the players action (currently only for E_lose).
 #' @returns A list containing "total_winnings" a vector with the earnings for each agent, "num_extinctions" containing the number of extinctions, 
 #' "all_risky_plays" a dataframe with the risky plays over time for each agent, and "all_alive" denoting for each agent and trial whether they are alive.
 #' @export
@@ -27,7 +28,7 @@
 #' s2 = 0.5, payoff_r2 = 0, payoff_r3 = 10, payoff_s1 = 0, payoff_s2 = 1, 
 #' soft = TRUE, type = "lose", inv_temp = 10, precision = 10)
 simulate <- function(e, max_n, r1, r2, r3, s1, s2, payoff_r2 = 0, payoff_r3 = 10, payoff_s1 = 0, payoff_s2 = 1, 
-                     soft = TRUE, type = "lose", inv_temp = 10, precision = 1000) {
+                     soft = TRUE, type = "lose", inv_temp = 10, precision = 1000, amb_risk = 0) {
   num_extinctions <- 0
   
   all_risky_plays <- matrix(FALSE, nrow=precision, ncol=max_n)
@@ -36,7 +37,7 @@ simulate <- function(e, max_n, r1, r2, r3, s1, s2, payoff_r2 = 0, payoff_r3 = 10
   
   for (round in 1:precision) {
     outcome <- play(e, max_n, r1, r2, r3, s1, s2, payoff_r2 = payoff_r2, payoff_r3 = payoff_r3, payoff_s1 = payoff_s1, payoff_s2 = payoff_s2, 
-                    soft = soft, type = type, inv_temp = inv_temp)
+                    soft = soft, type = type, inv_temp = inv_temp, amb_risk = amb_risk)
     total_winnings[round] <- tail(outcome$cumulative_winnings, n=1)
     
     if (outcome$extinction) {

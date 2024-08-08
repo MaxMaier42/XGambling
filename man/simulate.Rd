@@ -19,7 +19,8 @@ simulate(
   soft = TRUE,
   type = "lose",
   inv_temp = 10,
-  precision = 1000
+  precision = 1000,
+  amb_risk = 0
 )
 }
 \arguments{
@@ -52,6 +53,8 @@ simulate(
 \item{inv_temp}{inverse temperature for the softmax transformation}
 
 \item{precision}{the number of agents being simulated}
+
+\item{amb_risk}{The background extinction risk independent of the players action (currently only for E_lose).}
 }
 \value{
 A list containing "total_winnings" a vector with the earnings for each agent, "num_extinctions" containing the number of extinctions,

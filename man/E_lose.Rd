@@ -15,7 +15,8 @@ E_lose(
   payoff_r2 = 0,
   payoff_r3 = 10,
   payoff_s1 = 0,
-  payoff_s2 = 1
+  payoff_s2 = 1,
+  amb_risk = 0
 )
 }
 \arguments{
@@ -40,6 +41,8 @@ E_lose(
 \item{payoff_s1}{The payoff of outcome 1 when choosing the safe lottery}
 
 \item{payoff_s2}{The payoff of outcome 2 when choosing the safe lottery}
+
+\item{amb_risk}{The background extinction risk independent of the players action.}
 }
 \value{
 A list with the expected payoff when following the optimal strategy, the optimal next choice, a

@@ -18,7 +18,8 @@ play(
   payoff_s2 = 1,
   soft = FALSE,
   type = "lose",
-  inv_temp = NULL
+  inv_temp = NULL,
+  amb_risk = 0
 )
 }
 \arguments{
@@ -49,6 +50,8 @@ play(
 \item{type}{whether "lose" or "reset" version is used}
 
 \item{inv_temp}{inverse temperature for the softmax transformation}
+
+\item{amb_risk}{The background extinction risk independent of the players action (currently only for E_lose).}
 }
 \value{
 A list with the cumulative winnings during the task, whether the agent played risky or safe on each trial,

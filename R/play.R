@@ -17,6 +17,7 @@
 #' @param soft whether softmax or deterministic version should be used (TRUE or FALSE)
 #' @param type whether "lose" or "reset" version is used
 #' @param inv_temp inverse temperature for the softmax transformation
+#' @param amb_risk The background extinction risk independent of the players action (currently only for E_lose).
 #' @returns A list with the cumulative winnings during the task, whether the agent played risky or safe on each trial, 
 #' the number of risky plays, whether the agent went extinction, and how many rounds they were alive.
 #' @export
@@ -26,7 +27,7 @@
 #' play(e = 0, max_n = 10, r1 = 0.05, r2 = 0.475, r3 = 0.475, s1 = 0.5, 
 #' s2 = 0.5, payoff_r2 = 0, payoff_r3 = 10, payoff_s1 = 0, payoff_s2 = 1, 
 #' soft = TRUE, type = "reset", inv_temp = 50)
-play <- function(e, max_n, r1, r2, r3, s1, s2, payoff_r2 = 0, payoff_r3 = 10, payoff_s1 = 0, payoff_s2 = 1, soft=FALSE, type="lose", inv_temp=NULL) {
+play <- function(e, max_n, r1, r2, r3, s1, s2, payoff_r2 = 0, payoff_r3 = 10, payoff_s1 = 0, payoff_s2 = 1, soft=FALSE, type="lose", inv_temp=NULL, amb_risk = 0) {
   rounds_alive <- rep(TRUE, max_n)
   cumulative_winnings <- rep(0, max_n)
   risky_plays <- rep(FALSE, max_n)
@@ -43,7 +44,7 @@ play <- function(e, max_n, r1, r2, r3, s1, s2, payoff_r2 = 0, payoff_r3 = 10, pa
       play_risky <- runif(1) < result_soft$risky_prob
     } else {
       if (type == "lose") {
-        result <- E_lose(winnings_so_far, max_n - (n - 1), r1, r2, r3, s1, s2, payoff_r2, payoff_r3, payoff_s1, payoff_s2)
+        result <- E_lose(winnings_so_far, max_n - (n - 1), r1, r2, r3, s1, s2, payoff_r2, payoff_r3, payoff_s1, payoff_s2, amb_risk = amb_risk)
       } else if (type == "reset") {
         result <- E_reset(winnings_so_far, max_n - (n - 1), r1, r2, r3, s1, s2, payoff_r2, payoff_r3, payoff_s1, payoff_s2)
       }
