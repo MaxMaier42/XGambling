@@ -56,7 +56,7 @@ play <- function(e, max_n, r1, r2, r3, s1, s2, payoff_r2 = 0, payoff_r3 = 10, pa
     
     if (play_risky) {
       num_risky <- num_risky + 1
-      outcome <- sample("X", "again", 1 prob = (amb_risk, amb_surv))
+      outcome <- sample("X", "again", 1, prob = c(amb_risk, amb_surv))
       if(outcome == "again"){
         outcome <- sample(c("X", "L", "W"), 1, prob=c(r1, r2, r3))
       }
