@@ -75,7 +75,21 @@ play <- function(e, max_n, r1, r2, r3, s1, s2, payoff_r2 = 0, payoff_r3 = 10, pa
         winnings_so_far <- winnings_so_far + payoff_r2
       }
     } else {
-      winnings_so_far <- winnings_so_far + sample(c(payoff_s1, payoff_s2), 1, prob=c(s1, s2))
+      
+      outcome <- sample(c("X", "again"), 1, prob = c(amb_risk, amb_surv))
+      if (outcome == "X") {
+        if (n != max_n) {
+          rounds_alive[(n+1):max_n] <- FALSE
+          return(list(cumulative_winnings=cumulative_winnings, risky_plays=risky_plays, 
+                      rounds=num_risky, extinction=TRUE, rounds_alive=rounds_alive))
+        } else {
+          return(list(cumulative_winnings=cumulative_winnings, risky_plays=risky_plays, 
+                      rounds=num_risky, extinction=TRUE, rounds_alive=rounds_alive))
+        }
+      } else {
+        winnings_so_far <- winnings_so_far + sample(c(payoff_s1, payoff_s2), 1, prob=c(s1, s2))
+      }
+      
     }
     
     cumulative_winnings[n] <- winnings_so_far
