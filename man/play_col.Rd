@@ -62,6 +62,10 @@ play_col(
 \item{payoff_s2}{The payoff of outcome 2 when choosing the safe lottery}
 
 \item{coord}{Whether players can coordinate (e.g., through text) to hit a specific target number of risky choices or not}
+
+\item{soft}{Should softmax version be used?}
+
+\item{inv_temp}{Inverse temperature for softmax}
 }
 \value{
 A list containing the following elements:

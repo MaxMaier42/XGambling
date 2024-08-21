@@ -202,6 +202,8 @@ E_soft_col <- function(e, n_trials, n_players, r1, r2, r3, s1, s2, payoff_r2 = 0
 #' @param payoff_s1 The payoff of outcome 1 when choosing the safe lottery (default = 0)
 #' @param payoff_s2 The payoff of outcome 2 when choosing the safe lottery (default = 1)
 #' @param coord Boolean indicating whether players can coordinate on risky choices or not (default = FALSE)
+#' @param soft Should softmax version be used?
+#' @param inv_temp Inverse temperature for softmax
 #' @returns A list containing the following elements:
 #' \item{cumulative_winnings}{A vector of the cumulative winnings over the course of the round}
 #' \item{risky_plays}{A logical vector indicating whether risky plays were made in each round}
@@ -282,6 +284,8 @@ play_col <- function(e, max_n, n_players, r1, r2, r3, s1, s2, payoff_r2 = 0, pay
 #' @param payoff_s2 The payoff of outcome 2 when choosing the safe lottery (default = 1)
 #' @param precision The number of iterations to simulate (default = 1000)
 #' @param coord Boolean indicating whether players can coordinate on risky choices or not (default = FALSE)
+#' @param soft Should softmax version be used?
+#' @param inv_temp Inverse temperature for softmax
 #' @returns A list containing the following elements:
 #' \item{outcome}{The outcome of the last round of simulation (includes cumulative winnings, risky plays, etc.)}
 #' \item{total_winnings}{A vector of total winnings for each iteration}

@@ -66,6 +66,10 @@ simulate_col(
 \item{coord}{Whether players can coordinate (e.g., through text) to hit a specific target number of risky choices or not}
 
 \item{precision}{How many games should be simulated}
+
+\item{soft}{Should softmax version be used?}
+
+\item{inv_temp}{Inverse temperature for softmax}
 }
 \value{
 A list containing the following elements:
