@@ -3,6 +3,7 @@
 export(E_col)
 export(E_lose)
 export(E_reset)
+export(E_soft_col)
 export(E_soft_lose)
 export(E_soft_reset)
 export(ev_keep)
