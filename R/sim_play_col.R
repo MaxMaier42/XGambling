@@ -70,7 +70,7 @@ play_col <- function(e, max_n, n_players, r1, r2, r3, s1, s2, payoff_r2 = 0, pay
     if(n_players - risky_plays[i] > 0){
       winnings_so_far <- winnings_so_far + sum(sample(c(0, 1), n_players - risky_plays[i], prob = c(s1, s2), replace = TRUE)) * payoff_s2
     }
-    print(winnings_so_far)
+    #print(winnings_so_far)
     cumulative_winnings[i] <- winnings_so_far
   }
   
