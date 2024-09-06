@@ -12,7 +12,7 @@ E_soft_reset(
   r3,
   s1,
   s2,
-  inv_temp = 1,
+  inv_temp = 10,
   payoff_r2 = 0,
   payoff_r3 = 10,
   payoff_s1 = 0,

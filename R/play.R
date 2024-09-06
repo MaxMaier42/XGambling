@@ -60,7 +60,7 @@ play <- function(e, max_n, r1, r2, r3, s1, s2, payoff_r2 = 0, payoff_r3 = 10, pa
       if(outcome == "again"){
         outcome <- sample(c("X", "L", "W"), 1, prob=c(r1, r2, r3))
       }
-      if (outcome == "X") {
+      if (outcome == "X" & type == "lose") {
         if (n != max_n) {
           rounds_alive[(n+1):max_n] <- FALSE
           return(list(cumulative_winnings=cumulative_winnings, risky_plays=risky_plays, 
@@ -69,7 +69,11 @@ play <- function(e, max_n, r1, r2, r3, s1, s2, payoff_r2 = 0, payoff_r3 = 10, pa
           return(list(cumulative_winnings=cumulative_winnings, risky_plays=risky_plays, 
                       rounds=num_risky, extinction=TRUE, rounds_alive=rounds_alive))
         }
-      } else if (outcome == "W") {
+      }
+      if (outcome == "X" & type == "reset") {
+          winnings_so_far <- 0
+      }
+      else if (outcome == "W") {
         winnings_so_far <- winnings_so_far + payoff_r3
       } else {
         winnings_so_far <- winnings_so_far + payoff_r2
@@ -77,7 +81,7 @@ play <- function(e, max_n, r1, r2, r3, s1, s2, payoff_r2 = 0, payoff_r3 = 10, pa
     } else {
       
       outcome <- sample(c("X", "again"), 1, prob = c(amb_risk, amb_surv))
-      if (outcome == "X") {
+      if (outcome == "X" & type == "lose") {
         if (n != max_n) {
           rounds_alive[(n+1):max_n] <- FALSE
           return(list(cumulative_winnings=cumulative_winnings, risky_plays=risky_plays, 
@@ -86,7 +90,11 @@ play <- function(e, max_n, r1, r2, r3, s1, s2, payoff_r2 = 0, payoff_r3 = 10, pa
           return(list(cumulative_winnings=cumulative_winnings, risky_plays=risky_plays, 
                       rounds=num_risky, extinction=TRUE, rounds_alive=rounds_alive))
         }
-      } else {
+      } 
+      if (outcome == "X" & type == "reset") {
+        winnings_so_far <- 0
+      } 
+      else {
         winnings_so_far <- winnings_so_far + sample(c(payoff_s1, payoff_s2), 1, prob=c(s1, s2))
       }
       

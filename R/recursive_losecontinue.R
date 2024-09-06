@@ -73,7 +73,7 @@ E_reset <- function(e, n, r1, r2, r3, s1, s2, payoff_r2 = 0, payoff_r3 = 10, pay
 #' soft_cache_lc <- list()
 #' E_soft_reset(e = 0, n = 100, r1 = 0.05, r2 = 0.475, r3 = 0.475, s1 = 0.5, 
 #' s2 = 0.5, payoff_r2 = 0, payoff_r3 = 10, payoff_s1 = 0, payoff_s2 = 1)
-E_soft_reset <- function(e, n, r1, r2, r3, s1, s2, inv_temp = 1, payoff_r2 = 0, payoff_r3 = 10, payoff_s1 = 0, payoff_s2 = 1) {
+E_soft_reset <- function(e, n, r1, r2, r3, s1, s2, inv_temp = 10, payoff_r2 = 0, payoff_r3 = 10, payoff_s1 = 0, payoff_s2 = 1) {
   key <- paste(e, n, r1, r2, r3, s1, s2, inv_temp, payoff_r2, payoff_r3, payoff_s1, payoff_s2, sep = "-")
   # print(key)
   
