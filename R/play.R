@@ -32,7 +32,7 @@ play <- function(e, max_n, r1, r2, r3, s1, s2, payoff_r2 = 0, payoff_r3 = 10, pa
   cumulative_winnings <- rep(0, max_n)
   risky_plays <- rep(FALSE, max_n)
   num_risky <- 0
-  winnings_so_far <- 0
+  winnings_so_far <- e
   amb_surv <- 1-amb_risk
   
   for (n in 1:max_n) {
