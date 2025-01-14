@@ -87,8 +87,8 @@ E_col <- function(e, n_trials, n_players, r1, r2, r3, s1, s2, payoff_r2 = 0, pay
 
     if(length(index > 1)) index <- index[1]
     if (!coord) {
-      if (!(index == 1 | index == 6)) {
-        select <- sample(1:(n_players), 1)
+      if (!(index == 1 | index == n_players + 1)) {
+        select <- sample(1:(n_players+1), 1)
         result <- list(value = EV_n[select], play_risky = select-1)
       } else {
         result <- list(value = max(EV_n), play_risky = index - 1)
