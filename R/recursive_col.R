@@ -87,8 +87,9 @@ E_col <- function(e, n_trials, n_players, r1, r2, r3, s1, s2, payoff_r2 = 0, pay
 
     if(length(index > 1)) index <- index[1]
     if (!coord) {
-      if (index > 1) {
-        result <- list(value = EV_n[n_players + 1], play_risky = n_players)
+      if (index > 1 & index < 6) {
+        select <- sample(2:(n_players-1), 1)
+        result <- list(value = EV_n[select + 1], play_risky = select)
       } else {
         result <- list(value = max(EV_n), play_risky = index - 1)
       }
@@ -121,7 +122,7 @@ E_col <- function(e, n_trials, n_players, r1, r2, r3, s1, s2, payoff_r2 = 0, pay
 #' @param payoff_r3 The payoff of outcome 3 when choosing the risky lottery
 #' @param payoff_s1 The payoff of outcome 1 when choosing the safe lottery
 #' @param payoff_s2 The payoff of outcome 2 when choosing the safe lottery
-#' @param coord Whether players can coordinate (e.g., through text) to hit a specific target number of risky choices or not 
+#' @param coord Whether players can coordinate (e.g., through text) to hit a specific target number of risky choices or not (beta)
 #' @param inv_temp Softmax inverse temperature
 #' @returns A list with the expected payoff when following the optimal strategy and the optimal next choice.
 #' @export
@@ -164,7 +165,6 @@ E_soft_col <- function(e, n_trials, n_players, r1, r2, r3, s1, s2, payoff_r2 = 0
     if (!coord) {
       EV <- probs[1]*EV_n[1] + sum(probs[2:6])*EV_n[n_players+1]
       result <- list(value = EV, prob_risky = c(probs[1], rep(0, n_players -1), sum(probs[2:6])))
-      
     }
     if (coord) {
       result <- list(value = sum(probs*EV_n), prob_risky = probs)

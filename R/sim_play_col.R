@@ -16,7 +16,7 @@
 #' @param payoff_r3 The payoff of outcome 3 when choosing the risky lottery (default = 10)
 #' @param payoff_s1 The payoff of outcome 1 when choosing the safe lottery (default = 0)
 #' @param payoff_s2 The payoff of outcome 2 when choosing the safe lottery (default = 1)
-#' @param coord Boolean indicating whether players can coordinate on risky choices or not (default = FALSE)
+#' @param coord Boolean indicating whether players can coordinate on risky choices or not (default = FALSE, does not work for softmax)
 #' @param soft Should softmax version be used? (default = FALSE)
 #' @param inv_temp Inverse temperature for softmax (default = 10)
 #' @returns A list containing the following elements:
@@ -98,7 +98,7 @@ play_col <- function(e, max_n, n_players, r1, r2, r3, s1, s2, payoff_r2 = 0, pay
 #' @param payoff_s2 The payoff of outcome 2 when choosing the safe lottery (default = 1)
 #' @param precision The number of iterations to simulate (default = 1000)
 #' @param clearCache Set to "col" to clear the cache
-#' @param coord Boolean indicating whether players can coordinate on risky choices or not (default = FALSE)
+#' @param coord Boolean indicating whether players can coordinate on risky choices or not (default = FALSE, does not work for softmax)
 #' @param soft Should softmax version be used?
 #' @param inv_temp Inverse temperature for softmax
 #' @returns A list containing the following elements:

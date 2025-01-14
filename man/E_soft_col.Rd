@@ -46,7 +46,7 @@ E_soft_col(
 
 \item{payoff_s2}{The payoff of outcome 2 when choosing the safe lottery}
 
-\item{coord}{Whether players can coordinate (e.g., through text) to hit a specific target number of risky choices or not}
+\item{coord}{Whether players can coordinate (e.g., through text) to hit a specific target number of risky choices or not (beta)}
 
 \item{inv_temp}{Softmax inverse temperature}
 }

@@ -47,7 +47,7 @@ play_col(
 
 \item{payoff_s2}{The payoff of outcome 2 when choosing the safe lottery (default = 1)}
 
-\item{coord}{Boolean indicating whether players can coordinate on risky choices or not (default = FALSE)}
+\item{coord}{Boolean indicating whether players can coordinate on risky choices or not (default = FALSE, does not work for softmax)}
 
 \item{soft}{Should softmax version be used? (default = FALSE)}
 
